@@ -1,11 +1,18 @@
 'use client';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 
-// You need to import our styles for the button to look right. Best to import in the root /layout.tsx but this is fine
 import '@uploadthing/react/styles.css';
 
 import { UploadButton } from '../../lib/uploadthing';
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from '@radix-ui/react-alert-dialog';
+import { AlertDialogFooter, AlertDialogHeader } from '../ui/alert-dialog';
 
 export default function Home() {
 	return (
@@ -13,9 +20,26 @@ export default function Home() {
 			<UploadButton
 				endpoint='imageUploader'
 				onClientUploadComplete={(res) => {
-					// Do something with the response
 					console.log('Files: ', res);
-					alert('Upload Completed');
+
+					<AlertDialog>
+						<AlertDialogTrigger>Open</AlertDialogTrigger>
+						<AlertDialogContent>
+							<AlertDialogHeader>
+								<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+								<AlertDialogDescription>
+									This action cannot be undone. This will permanently delete
+									your account and remove your data from our servers.
+								</AlertDialogDescription>
+							</AlertDialogHeader>
+							<AlertDialogFooter>
+								<AlertDialogCancel>Cancel</AlertDialogCancel>
+								<AlertDialogAction>Continue</AlertDialogAction>
+							</AlertDialogFooter>
+						</AlertDialogContent>
+					</AlertDialog>;
+
+					// alert('Upload Completed');
 				}}
 				onUploadError={(error: Error) => {
 					// Do something with the error.
@@ -25,20 +49,3 @@ export default function Home() {
 		</main>
 	);
 }
-
-// const Upload = () => {
-// 	return (
-// 		<main className='h-[400px] bg-slate-400/80'>
-// 			<div className='grid w-full max-w-sm items-center gap-1.5'>
-// 				<Label htmlFor='picture'>File</Label>
-// 				<Input
-// 					id='picture'
-// 					type='file'
-// 				/>
-// 			</div>
-// 			<form></form>
-// 		</main>
-// 	);
-// };
-
-// export default Upload;

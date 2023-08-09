@@ -1,3 +1,4 @@
+import { AlertDialog } from '@/components/ui/alert-dialog';
 import { createUploadthing, type FileRouter } from 'uploadthing/next';
 
 const f = createUploadthing();
