@@ -21,7 +21,7 @@ export default function RootLayout({
 			<body className={`${inter.className} h-screen bg-green-200`}>
 				<div className='frame'>
 					<Navbar />
-					{children}
+					<main className='flex justify-center items-center'>{children}</main>
 					<Footer />
 				</div>
 			</body>

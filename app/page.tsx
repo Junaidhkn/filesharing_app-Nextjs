@@ -1,10 +1,9 @@
-import Upload from '@/components/global/Upload';
-import React from 'react';
+import MainUpload from '@/components/global/MainUpload';
 
 const HomePage = () => {
 	return (
-		<main className='flex justify-center items-center'>
-			<Upload />
+		<main className='m-auto w-3/4 h-[500px] bg-white z-10 rounded-xl'>
+			<MainUpload />
 		</main>
 	);
 };
