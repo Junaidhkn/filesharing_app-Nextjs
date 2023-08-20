@@ -1,21 +1,26 @@
 'use client';
 
+import '@uploadthing/react/styles.css';
+
+import { UploadButton } from '../../lib/uploadthing';
+
 const MainUpload = () => {
 	return (
 		<div className='p-9 w-[650px] h-full border border-black'>
 			<div className='flex gap-7'>
 				<div className='input basis-[40%]'>
-					<form
-						method='post'
-						encType='multipart/form-data'>
-						<input
-							id='file'
-							type='file'
-							name='file'
-							accept='*/*'
-							className='custom-uploader'
+					<div className='flex flex-col items-center justify-between p-24'>
+						<UploadButton
+							endpoint='imageUploader'
+							onClientUploadComplete={(res) => {
+								console.log('Files: ', res);
+							}}
+							onUploadError={(error: Error) => {
+								// Do something with the error.
+								alert(`ERROR! ${error.message}`);
+							}}
 						/>
-					</form>
+					</div>
 				</div>
 				<div className='h-[350px] w-[0.5px] bg-slate-800'></div>
 				<div className='form-container basis-[70%] font-bold text-white'>
