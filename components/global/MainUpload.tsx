@@ -23,7 +23,7 @@ const MainUpload = () => {
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
 
 	return (
-		<div className='p-9 w-[650px] h-full border border-black'>
+		<div className='p-9 w-[65vw] h-full'>
 			<div className='flex gap-7'>
 				<div className='input basis-[40%]'>
 					<div className='flex flex-col items-center justify-between p-24'>
