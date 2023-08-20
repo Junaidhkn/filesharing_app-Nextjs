@@ -3,8 +3,25 @@
 import '@uploadthing/react/styles.css';
 
 import { UploadButton } from '../../lib/uploadthing';
+import { useState } from 'react';
 
 const MainUpload = () => {
+	const [fileName, setFileName] = useState<string>('');
+	const [fileUrl, setFileUrl] = useState<string>('');
+
+	const copyHandler = () => {
+		var copyText = document.getElementById(
+			'myInput',
+		) as HTMLInputElement | null;
+		copyText?.select();
+		copyText?.setSelectionRange(0, 99999); /* For mobile devices */
+		if (copyText) {
+			navigator.clipboard.writeText(copyText.value);
+		}
+	};
+
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
+
 	return (
 		<div className='p-9 w-[650px] h-full border border-black'>
 			<div className='flex gap-7'>
@@ -13,13 +30,19 @@ const MainUpload = () => {
 						<UploadButton
 							endpoint='imageUploader'
 							onClientUploadComplete={(res) => {
-								console.log('Files: ', res);
+								if (res) {
+									setFileName(res[0].fileKey.split('_')[1]);
+									setFileUrl(res[0].fileUrl);
+								}
 							}}
 							onUploadError={(error: Error) => {
 								// Do something with the error.
 								alert(`ERROR! ${error.message}`);
 							}}
 						/>
+						{fileName && (
+							<p className='font-bold m-3 stroke-emerald-300'>{fileName}</p>
+						)}
 					</div>
 				</div>
 				<div className='h-[350px] w-[0.5px] bg-slate-800'></div>
@@ -90,6 +113,23 @@ const MainUpload = () => {
 					</form>
 				</div>
 			</div>
+			{fileUrl && (
+				<div className='flex flex-col justify-center items-center'>
+					<input
+						type='text'
+						value={fileUrl ? fileUrl : ''}
+						id='myInput'
+						className='read-form-control'
+						placeholder='Download Link'
+						readOnly
+					/>
+					<button
+						className='text-center  px-6 py-3 font-bold text-white bg-slate-800 rounded-2xl'
+						onClick={copyHandler}>
+						CopyLink
+					</button>
+				</div>
+			)}
 		</div>
 	);
 };
