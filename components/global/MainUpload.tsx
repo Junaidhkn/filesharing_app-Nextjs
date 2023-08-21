@@ -4,11 +4,13 @@ import '@uploadthing/react/styles.css';
 
 import { UploadButton } from '../../lib/uploadthing';
 import { useRef, useState } from 'react';
+import { useToast } from '../ui/use-toast';
+import { ToastAction } from '../ui/toast';
 
 const MainUpload = () => {
+	const { toast } = useToast();
 	const [fileName, setFileName] = useState<string>('');
 	const [fileUrl, setFileUrl] = useState<string>('');
-	// const [disabled, setDisabled] = useState<boolean>(true);
 
 	const emailTo = useRef<HTMLInputElement>(null);
 	const emailFrom = useRef<HTMLInputElement>(null);
@@ -24,6 +26,10 @@ const MainUpload = () => {
 		if (copyText) {
 			navigator.clipboard.writeText(copyText.value);
 		}
+		toast({
+			description: 'File URL Copied to Clipboard',
+			className: 'bg-slate-900 text-white h-18',
+		});
 	};
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -60,10 +66,35 @@ const MainUpload = () => {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					// Todo
+					if (data) {
+						toast({
+							title: 'Email sent successfully!',
+							description: `Email has been sent to ${emailTo.current?.value}, along with download link.`,
+							className: 'bg-slate-900 text-white',
+						});
+					}
+					setFileName('');
+					setFileUrl('');
+					if (emailTo.current) {
+						emailTo.current.value = '';
+					}
+					if (emailFrom.current) {
+						emailFrom.current.value = '';
+					}
+					if (subject.current) {
+						subject.current.value = '';
+					}
+					if (description.current) {
+						description.current.value = '';
+					}
 				})
 				.catch((err) => {
-					console.log('Erorrerererererdsfsdfsdf', err);
+					toast({
+						variant: 'destructive',
+						title: 'Uh oh! Something went wrong.',
+						description: 'There was a problem with your request.',
+						action: <ToastAction altText='Try again'>Try again</ToastAction>,
+					});
 				});
 		}
 	};
@@ -71,7 +102,7 @@ const MainUpload = () => {
 	return (
 		<div className='p-9 w-[65vw] overflow-y-scroll  h-full'>
 			<div className='flex gap-7'>
-				<div className='input basis-[40%]'>
+				<div className='input basis-[40%] '>
 					<div className='flex flex-col items-center justify-between p-24'>
 						<UploadButton
 							endpoint='imageUploader'

@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/toaster';
 import Footer from '@/components/global/Footer';
 import './globals.css';
 import type { Metadata } from 'next';
@@ -22,6 +23,7 @@ export default function RootLayout({
 				<div className='frame'>
 					<Navbar />
 					<main className='flex justify-center items-center'>{children}</main>
+					<Toaster />
 					<Footer />
 				</div>
 			</body>
