@@ -3,11 +3,17 @@
 import '@uploadthing/react/styles.css';
 
 import { UploadButton } from '../../lib/uploadthing';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 const MainUpload = () => {
 	const [fileName, setFileName] = useState<string>('');
 	const [fileUrl, setFileUrl] = useState<string>('');
+	const [disabled, setDisabled] = useState<boolean>(true);
+
+	const emailTo = useRef('');
+	const emailFrom = useRef('');
+	const subject = useRef('');
+	const description = useRef('');
 
 	const copyHandler = () => {
 		var copyText = document.getElementById(
@@ -20,7 +26,9 @@ const MainUpload = () => {
 		}
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+	};
 
 	return (
 		<div className='p-9 w-[65vw] h-full'>
@@ -34,6 +42,7 @@ const MainUpload = () => {
 									setFileName(res[0].fileKey.split('_')[1]);
 									setFileUrl(res[0].fileUrl);
 								}
+								setDisabled(false);
 							}}
 							onUploadError={(error: Error) => {
 								// Do something with the error.
@@ -47,7 +56,9 @@ const MainUpload = () => {
 				</div>
 				<div className='h-[350px] w-[0.5px] bg-slate-800'></div>
 				<div className='form-container basis-[70%] font-bold text-white'>
-					<form method='post'>
+					<form
+						method='post'
+						onSubmit={handleSubmit}>
 						<div className='input-imp'>
 							<input
 								className='textField-input'
