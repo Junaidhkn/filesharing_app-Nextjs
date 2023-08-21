@@ -8,12 +8,12 @@ import { useRef, useState } from 'react';
 const MainUpload = () => {
 	const [fileName, setFileName] = useState<string>('');
 	const [fileUrl, setFileUrl] = useState<string>('');
-	const [disabled, setDisabled] = useState<boolean>(true);
+	// const [disabled, setDisabled] = useState<boolean>(true);
 
-	const emailTo = useRef('');
-	const emailFrom = useRef('');
-	const subject = useRef('');
-	const description = useRef('');
+	const emailTo = useRef<HTMLInputElement>(null);
+	const emailFrom = useRef<HTMLInputElement>(null);
+	const subject = useRef<HTMLInputElement>(null);
+	const description = useRef<HTMLTextAreaElement>(null);
 
 	const copyHandler = () => {
 		var copyText = document.getElementById(
@@ -28,6 +28,49 @@ const MainUpload = () => {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
+		const emailToValue: string | undefined = emailTo.current?.value;
+		const emailFromValue: string | undefined = emailFrom.current?.value;
+		const subjectValue: string | undefined = subject.current?.value;
+		const descriptionValue: string | undefined = description.current?.value;
+
+		if (
+			emailToValue &&
+			emailFromValue &&
+			subjectValue &&
+			descriptionValue &&
+			fileUrl &&
+			fileName
+		) {
+			const data = {
+				emailTo: emailToValue,
+				emailFrom: emailFromValue,
+				subject: subjectValue,
+				description: descriptionValue,
+				fileUrl: fileUrl,
+				fileName: fileName,
+			};
+
+			fetch('/api/sendgrid', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					console.log(data);
+					// if (data.ok) {
+					// 	console.log(data);
+					// } else {
+					// 	// alert('Email Sent Failed');
+					// }
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	};
 
 	return (
@@ -42,7 +85,7 @@ const MainUpload = () => {
 									setFileName(res[0].fileKey.split('_')[1]);
 									setFileUrl(res[0].fileUrl);
 								}
-								setDisabled(false);
+								// setDisabled(false);
 							}}
 							onUploadError={(error: Error) => {
 								// Do something with the error.
@@ -65,6 +108,7 @@ const MainUpload = () => {
 								type='email'
 								name='emailto'
 								id='emailto'
+								ref={emailTo}
 								required
 							/>
 							<label
@@ -79,6 +123,7 @@ const MainUpload = () => {
 								type='email'
 								name='emailfrom'
 								id='emailfrom'
+								ref={emailFrom}
 								required
 							/>
 							<label
@@ -93,6 +138,7 @@ const MainUpload = () => {
 								type='text'
 								name='Subject'
 								id='Subject'
+								ref={subject}
 								required
 							/>
 							<label
@@ -107,6 +153,7 @@ const MainUpload = () => {
 								typeof='text'
 								name='description'
 								id='description'
+								ref={description}
 								required></textarea>
 							<label
 								className='textField-label'
