@@ -80,14 +80,14 @@ const MainUpload = () => {
 							<input
 								className='textField-input'
 								type='text'
-								name='title'
-								id='title'
+								name='Subject'
+								id='Subject'
 								required
 							/>
 							<label
 								className='textField-label'
-								htmlFor='title'>
-								Title :
+								htmlFor='Subject'>
+								Subject :
 							</label>
 						</div>
 						<div className='input-imp'>
@@ -107,7 +107,7 @@ const MainUpload = () => {
 							<button
 								type='submit'
 								className='action-button'>
-								Transfer
+								Transfer via Email
 							</button>
 						</div>
 					</form>
