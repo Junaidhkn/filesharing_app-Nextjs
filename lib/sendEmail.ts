@@ -3,7 +3,7 @@ type arguments = {
 	emailFrom: string;
 	emailTo: string;
 	description: string;
-	fileURL: string;
+	fileUrl: string;
 	subject: string;
 	fileName: string;
 };
@@ -20,7 +20,7 @@ export const sendEmail = async ({
 	emailFrom,
 	emailTo,
 	description,
-	fileURL,
+	fileUrl,
 	subject,
 	fileName,
 }: arguments) => {
@@ -149,7 +149,7 @@ export const sendEmail = async ({
 		                          <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">
 		                              <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Hi there,</p>
 		                              <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;"><b>${emailFrom}</b> has shared a file with you.</p>
-		                              <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;"> ${fileName}</p>
+		                              <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Name of the file shared :  ${fileName}</p>
 		                              <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;">
 		                              <tbody>
 		                                  <tr>
@@ -157,7 +157,7 @@ export const sendEmail = async ({
 		                                      <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
 		                                      <tbody>
 		                                          <tr>
-		                                          <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #3498db; border-radius: 5px; text-align: center;"> <a href="${fileURL}" target="_blank" style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;">Download file</a> </td>
+		                                          <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #3498db; border-radius: 5px; text-align: center;"> <a href="${fileUrl}" target="_blank" style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;">Download file</a> </td>
 		                                          </tr>
 		                                      </tbody>
 		                                      </table>
@@ -183,7 +183,7 @@ export const sendEmail = async ({
 		                      <tr>
 		                      <td class="content-block" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;">
 		                          <span class="apple-link" style="color: #999999; font-size: 12px; text-align: center;">Share Me</span>
-		                          <br> Want to share a file? <a href="http://localhost:3000" style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">inShare</a>.
+		                          <br> Want to share a file? <a href="# style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">ShareME</a>.
 		                      </td>
 		                      </tr>
 		                  </table>

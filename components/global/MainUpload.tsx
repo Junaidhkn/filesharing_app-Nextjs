@@ -60,12 +60,7 @@ const MainUpload = () => {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					// console.log(data);
-					// if (data.ok) {
-					// 	console.log(data);
-					// } else {
-					// 	// alert('Email Sent Failed');
-					// }
+					// Todo
 				})
 				.catch((err) => {
 					console.log('Erorrerererererdsfsdfsdf', err);
