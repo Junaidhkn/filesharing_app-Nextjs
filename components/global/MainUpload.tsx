@@ -60,7 +60,7 @@ const MainUpload = () => {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					console.log(data);
+					// console.log(data);
 					// if (data.ok) {
 					// 	console.log(data);
 					// } else {
@@ -68,13 +68,13 @@ const MainUpload = () => {
 					// }
 				})
 				.catch((err) => {
-					console.log(err);
+					console.log('Erorrerererererdsfsdfsdf', err);
 				});
 		}
 	};
 
 	return (
-		<div className='p-9 w-[65vw] h-full'>
+		<div className='p-9 w-[65vw] overflow-y-scroll  h-full'>
 			<div className='flex gap-7'>
 				<div className='input basis-[40%]'>
 					<div className='flex flex-col items-center justify-between p-24'>
