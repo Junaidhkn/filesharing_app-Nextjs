@@ -51,7 +51,7 @@ const MainUpload = () => {
 				fileName: fileName,
 			};
 
-			fetch('/api/sendgrid', {
+			fetch('/api/sendmail', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
